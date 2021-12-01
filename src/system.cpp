@@ -26,15 +26,21 @@ System::System()
 
       };
 // TODO: Return the system's CPU
-Processor& System::Cpu() { return cpu_; }
+Processor& System::Cpu() {
+  cpu_.update();
+  return cpu_;
+}
 
 // TODO: Return a container composed of the system's processes
 vector<Process>& System::Processes() {
   processes_.clear();
   std::vector<int> pids = LinuxParser::Pids();
   for (int& pid : pids) {
-    processes_.push_back(Process(pid));
+    auto process = Process(pid);
+    process.Ram();
+    processes_.push_back(process);
   }
+  std::sort(processes_.begin(), processes_.end());
   return processes_;
 }
 
