@@ -22,5 +22,4 @@ void Processor::update() {
   utilization_ = static_cast<float>(totalTime - idleTime) / totalTime;
 }
 
-// TODO: Return the aggregate CPU utilization
 float Processor::Utilization() { return utilization_; }
