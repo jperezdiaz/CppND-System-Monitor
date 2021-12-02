@@ -20,7 +20,11 @@ Process::Process(int pid) : pid_{pid} {
 int Process::Pid() { return pid_; }
 
 // TODO: Return this process's CPU utilization
-float Process::CpuUtilization() { return 0; }
+float Process::CpuUtilization() {
+  return 100 * (static_cast<float>(LinuxParser::ActiveJiffies(pid_)) /
+                sysconf(_SC_CLK_TCK)) /
+         LinuxParser::UpTime(pid_);
+}
 
 // TODO: Return the command that generated this process
 string Process::Command() { return command_; }
