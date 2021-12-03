@@ -19,8 +19,8 @@ Process::Process(int pid) : pid_{pid} {
 int Process::Pid() { return pid_; }
 
 float Process::CpuUtilization() {
-  return 100 * (static_cast<float>(LinuxParser::ActiveJiffies(pid_)) /
-                sysconf(_SC_CLK_TCK)) /
+  return (static_cast<float>(LinuxParser::ActiveJiffies(pid_)) /
+          sysconf(_SC_CLK_TCK)) /
          LinuxParser::UpTime(pid_);
 }
 
